@@ -1,0 +1,41 @@
+Google Forms
+------------
+
+How to create a multiple-choice quiz (one answer per question) with positive and negative marking.
+
+Workflow for up to 10^N-1 questions (within available limit, anyway and with N>0 obviously)
+- set randomize questions / answers as needed
+- set question using "Multiple choice grid"
+- set question text + one column with a generic label (*)
+- set rows as possible ANSWERS
+- limit answer to one response per column
+- check all answers as correct
+- give a score of 10^N to the right answer
+- give a score of 1 to wrong answers
+
+(*) can be adapted to multiple columns, but it's somehow tricky
+
+e.g.
+for N=1, so up to 10^N-1 = 10^1-1 =  10-1 =  9 questions: give 10^N = 10^1 =  10 points to right answers and 1 point to wrong answers
+for N=2, so up to 10^N-1 = 10^2-1 = 100-1 = 99 questions: give 10^N = 10^2 = 100 points to right answers and 1 point to wrong answers
+
+Update final sheet with results taking the final score with the following formulas having:
+- SCORE as the value computed automatically
+- T as the number of questions (with T < 10^N)
+- R (Right) as the value for each right answer
+- M (Missing) as the value for each missing answer
+- W (Wrong) as the value for each wrong answer
+- r, w, m and g as the values of number of right answers, number of wrong asnwers, number of missing answer, final score 
+(SCORE is set by Google Forms; T, R, M and W are to be set manually; r, w, m and g are computed with the following formulas)
+
+r = INT(SCORE/(10^N))
+w = SCORE-r*(10^N)
+m = T-(r+w)
+
+g = r*R+w*W+m*M
+
+
+So, for example:
+- for up to  9 questions the computed SCORE is seen as composed by tens     (number of right answers) and units (number of wrong answer)
+- for up to 99 questions the computed SCORE is seen as composed by hundreds (number of right answers) and tens (with units, number of wrong answer)
+
